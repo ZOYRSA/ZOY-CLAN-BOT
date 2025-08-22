@@ -1,5 +1,7 @@
 # ZOY-CLAN-BOT
 Zoy Clan Bot Explore South African Clans,praises, and origins
+<meta name="google-site-verification" content="XXXXXXXXXXXXXXXXXXXX" />
+
 
 <!doctype html>
 <html lang="en">
