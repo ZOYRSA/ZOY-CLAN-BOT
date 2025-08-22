@@ -240,4 +240,12 @@ function addClan(newClan){
     "notes": "Symbolizes strength and leadership."
   }
 ]
-
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://zoyclanbot.github.io/zoy-clan-bot/</loc>
+    <lastmod>2025-08-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
