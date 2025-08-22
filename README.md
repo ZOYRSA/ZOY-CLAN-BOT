@@ -1,29 +1,43 @@
-# ZOY-CLAN-BOT
-Zoy Clan Bot Explore South African Clans,praises, and origins
-<meta name="google-site-verification" content="XXXXXXXXXXXXXXXXXXXX" />
-
 
 <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zoy Clan Bot – SA Clan Names</title>
-<meta name="description" content="Zoy Clan Bot – Explore South African clan names, praises, and origins. Add your own clan and chat with the bot!">
-<meta name="keywords" content="South African clans, Zoy Clan Bot, isiXhosa clans, isiZulu clans, clan praises, Mpisi, Dlamini, Ndlovu">
+<title>Zoy Clan Bot – Explore South African Clan Names & Praises</title>
+<meta name="description" content="Zoy Clan Bot lets you explore South African clans, their praises, origins, meanings, and regions. Search or chat with the bot and add your own clan.">
+<meta name="keywords" content="South African clans, Zoy Clan Bot, isiXhosa clans, isiZulu clans, clan praises, Mpisi, Dlamini, Ndlovu, South African history">
 <meta name="author" content="Yanga Mlindazwe">
-<style>
-:root {
-  --bg: #0f1116; --card: #171923; --text: #e6e6e6; --muted: #a0a0a0;
-  --accent: #8ae66e; --radius: 12px;
+<meta name="robots" content="index, follow">
+
+<!-- Google site verification -->
+<meta name="google-site-verification" content="YOUR_GOOGLE_VERIFICATION_CODE" />
+
+<!-- Structured data for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Zoy Clan Bot",
+  "url": "https://zoyclanbot.github.io/zoy-clan-bot/",
+  "description": "Explore South African clans, their praises, origins, meanings, and regions. Search, chat, and add new clans.",
+  "publisher": {
+    "@type": "Person",
+    "name": "Yanga Mlindazwe"
+  }
 }
-* { box-sizing: border-box; }
-body { margin:0; padding:24px; font-family: system-ui, sans-serif; background: radial-gradient(1200px 600px at 20% -10%, #1b2135, var(--bg)); color: var(--text); }
+</script>
+
+<style>
+:root { --bg:#0f1116;--card:#171923;--text:#e6e6e6;--muted:#a0a0a0;--accent:#8ae66e;--radius:12px; }
+*{box-sizing:border-box;}
+body{margin:0;padding:24px;font-family:system-ui,sans-serif;background:radial-gradient(1200px 600px at 20% -10%,#1b2135,var(--bg));color:var(--text);}
 h1{margin:0 0 4px;font-size:1.6rem;}
-p{margin:0;color:var(--muted);}
+h2{margin-top:24px;}
+p,li{margin:0 0 8px;color:var(--muted);}
 .wrap{max-width:900px;margin:0 auto;}
-.search, .chatbox, .add-clan{background:var(--card);padding:16px;border-radius:var(--radius);margin-bottom:16px;border:1px solid #22283a;}
-input[type=text], textarea{width:100%;padding:12px 14px;border-radius:10px;border:1px solid #252b3e;background:#0e111a;color:var(--text);outline:none;font-size:1rem; margin-bottom:8px;}
+.search,.chatbox,.add-clan{background:var(--card);padding:16px;border-radius:var(--radius);margin-bottom:16px;border:1px solid #22283a;}
+input[type=text],textarea{width:100%;padding:12px 14px;border-radius:10px;border:1px solid #252b3e;background:#0e111a;color:var(--text);outline:none;font-size:1rem;margin-bottom:8px;}
 button{padding:12px 16px;border-radius:10px;border:1px solid #2b3248;background:linear-gradient(180deg,#1e263c,#131a2e);color:var(--text);cursor:pointer;font-size:1rem;}
 button:hover{filter:brightness(1.1);}
 .grid{display:grid;gap:16px;margin-top:16px;}
@@ -42,12 +56,6 @@ button:hover{filter:brightness(1.1);}
   <p>Search, chat, or add clans to learn about South African clans, praises, and origins.</p>
 </header>
 
-<section>
-<h2>About Zoy Clan Bot</h2>
-<p>Zoy Clan Bot lets you explore South African clans, learn praises, origins, and add your own clan. Start by searching or chatting with the bot below.</p>
-</section>
-
-<!-- Search Section -->
 <section class="search">
   <input id="q" type="text" placeholder="Try: Dlamini, Tshawe, Khumalo, Mokoena, Ndlovu..." />
   <button id="btn">Search</button>
@@ -55,14 +63,12 @@ button:hover{filter:brightness(1.1);}
 
 <div id="results" class="grid"></div>
 
-<!-- Chatbot Section -->
 <section class="chatbox">
   <div class="chat-window" id="chatWindow"></div>
   <input id="chatInput" type="text" placeholder="Ask Zoy Clan Bot a question...">
   <button id="chatSend">Send</button>
 </section>
 
-<!-- Add Your Clan Section -->
 <section class="add-clan">
   <h2>Add Your Clan</h2>
   <input id="newSurname" placeholder="Surname">
@@ -85,33 +91,32 @@ button:hover{filter:brightness(1.1);}
     <li>Submissions are saved offline via your browser. Permanent edits require modifying clans.json.</li>
     <li>Zoy Clan Bot explains clan info respectfully using your dataset.</li>
   </ul>
-  <div class="small">Prototype v0.4 — offline & client-side only.</div>
+  <div class="small">Prototype v0.5 — offline & client-side only.</div>
 </div>
 </div>
 
 <script>
 // Load dataset
-let clans = [];
-async function loadData() {
-  try {
-    const res = await fetch('clans.json');
-    if(!res.ok) throw new Error('Could not load clans.json.');
-    clans = await res.json();
-    // Load saved clans from localStorage
-    const saved = localStorage.getItem('userClans');
-    if(saved) clans = clans.concat(JSON.parse(saved));
-  } catch(e) { alert(e.message); }
+let clans=[];
+async function loadData(){
+  try{
+    const res=await fetch('clans.json');
+    if(!res.ok)throw new Error('Could not load clans.json.');
+    clans=await res.json();
+    const saved=localStorage.getItem('userClans');
+    if(saved)clans=clans.concat(JSON.parse(saved));
+  }catch(e){alert(e.message);}
 }
 
 // Render search results
 function render(items){
-  const root=document.getElementById('results'); root.innerHTML='';
-  if(!items.length){root.innerHTML='<div class="card">No results. Try another surname or spelling.</div>'; return;}
+  const root=document.getElementById('results');root.innerHTML='';
+  if(!items.length){root.innerHTML='<div class="card">No results. Try another surname or spelling.</div>';return;}
   items.forEach(item=>{
     const languages=(item.language_group||[]).join(', ');
     const regions=(item.regions||[]).join(', ');
     const praises=(item.praises||[]).join(', ');
-    const el=document.createElement('div'); el.className='card';
+    const el=document.createElement('div');el.className='card';
     el.innerHTML=`
       <h2>${item.primary_clan_name} (${item.surname})</h2>
       <div><strong>Clan Type:</strong> ${item.clan_type}</div>
@@ -120,8 +125,7 @@ function render(items){
       <div><strong>Origin:</strong> ${item.origin_summary||'—'}</div>
       <div><strong>Meaning:</strong> ${item.etymology_or_meaning||'—'}</div>
       <div><strong>Regions:</strong> ${regions||'—'}</div>
-      <div><strong>Notes:</strong> ${item.notes||'—'}</div>
-    `;
+      <div><strong>Notes:</strong> ${item.notes||'—'}</div>`;
     root.appendChild(el);
   });
 }
@@ -129,67 +133,58 @@ function render(items){
 // Chatbot reply
 function chatReply(query){
   const lower=query.toLowerCase();
-  const item=clans.find(d=>d.surname.toLowerCase()===lower || (d.primary_clan_name||'').toLowerCase()===lower);
+  const item=clans.find(d=>d.surname.toLowerCase()===lower||(d.primary_clan_name||'').toLowerCase()===lower);
   if(item){
-    return `✨ ${item.surname} belongs to the *${item.primary_clan_name}* clan. `+
-           `Their praises include ${item.praises.join(', ')}. `+
-           `Origin: ${item.origin_summary}. `+
-           (item.etymology_or_meaning?`Meaning: ${item.etymology_or_meaning}. `:'')+
-           `Regions: ${item.regions.join(', ')}. Notes: ${item.notes}.`;
+    return `✨ ${item.surname} belongs to the *${item.primary_clan_name}* clan. Praises: ${item.praises.join(', ')}. Origin: ${item.origin_summary}. Meaning: ${item.etymology_or_meaning||'—'}. Regions: ${item.regions.join(', ')||'—'}. Notes: ${item.notes||'—'}.`;
   }else{
     return "❌ Sorry, Zoy Clan Bot doesn't have this clan yet. You can add it below!";
   }
 }
 
-// Add clan with LocalStorage
+// Add clan
 function addClan(newClan){
   clans.push(newClan);
-  let saved = localStorage.getItem('userClans');
-  let arr = saved ? JSON.parse(saved) : [];
+  let saved=localStorage.getItem('userClans');
+  let arr=saved?JSON.parse(saved):[];
   arr.push(newClan);
-  localStorage.setItem('userClans', JSON.stringify(arr));
+  localStorage.setItem('userClans',JSON.stringify(arr));
 }
 
-// Initialize
+// Init
 (async function init(){
   await loadData();
 
   // Search
-  const input=document.getElementById('q'); const btn=document.getElementById('btn');
-  function search(){const q=(input.value||'').trim().toLowerCase(); if(!q){render([]);return;}
-    const items=clans.filter(d=>d.surname.toLowerCase().includes(q) || (d.primary_clan_name||'').toLowerCase().includes(q));
+  const input=document.getElementById('q'),btn=document.getElementById('btn');
+  function search(){
+    const q=(input.value||'').trim().toLowerCase();if(!q){render([]);return;}
+    const items=clans.filter(d=>d.surname.toLowerCase().includes(q)||(d.primary_clan_name||'').toLowerCase().includes(q));
     render(items);
   }
   btn.addEventListener('click',search);
   input.addEventListener('keydown',e=>{if(e.key==='Enter')search();});
 
-  // Chatbot
-  const chatWindow=document.getElementById('chatWindow'); const chatInput=document.getElementById('chatInput'); const chatSend=document.getElementById('chatSend');
+  // Chat
+  const chatWindow=document.getElementById('chatWindow'),chatInput=document.getElementById('chatInput'),chatSend=document.getElementById('chatSend');
   function appendMessage(text,cls){const div=document.createElement('div');div.className='message '+cls;div.innerHTML=text;chatWindow.appendChild(div);chatWindow.scrollTop=chatWindow.scrollHeight;}
-  chatSend.addEventListener('click',()=>{
-    const msg=chatInput.value.trim(); if(!msg) return;
-    appendMessage(msg,'user');
-    const reply=chatReply(msg);
-    appendMessage(reply,'bot');
-    chatInput.value='';
-  });
+  chatSend.addEventListener('click',()=>{const msg=chatInput.value.trim();if(!msg)return;appendMessage(msg,'user');const reply=chatReply(msg);appendMessage(reply,'bot');chatInput.value='';});
   chatInput.addEventListener('keydown',e=>{if(e.key==='Enter'){chatSend.click();}});
 
-  // Add Your Clan
-  const addBtn=document.getElementById('addClanBtn'); const addMsg=document.getElementById('addClanMessage');
+  // Add Clan
+  const addBtn=document.getElementById('addClanBtn'),addMsg=document.getElementById('addClanMessage');
   addBtn.addEventListener('click',()=>{
     const newClan={
-      surname: document.getElementById('newSurname').value.trim(),
-      language_group: document.getElementById('newLang').value.split(',').map(s=>s.trim()),
-      clan_type: document.getElementById('newType').value.trim(),
-      primary_clan_name: document.getElementById('newPrimary').value.trim(),
-      praises: document.getElementById('newPraises').value.split(';').map(s=>s.trim()),
-      origin_summary: document.getElementById('newOrigin').value.trim(),
-      etymology_or_meaning: document.getElementById('newEtymology').value.trim(),
-      regions: document.getElementById('newRegions').value.split(',').map(s=>s.trim()),
-      notes: document.getElementById('newNotes').value.trim()
+      surname:document.getElementById('newSurname').value.trim(),
+      language_group:document.getElementById('newLang').value.split(',').map(s=>s.trim()),
+      clan_type:document.getElementById('newType').value.trim(),
+      primary_clan_name:document.getElementById('newPrimary').value.trim(),
+      praises:document.getElementById('newPraises').value.split(';').map(s=>s.trim()),
+      origin_summary:document.getElementById('newOrigin').value.trim(),
+      etymology_or_meaning:document.getElementById('newEtymology').value.trim(),
+      regions:document.getElementById('newRegions').value.split(',').map(s=>s.trim()),
+      notes:document.getElementById('newNotes').value.trim()
     };
-    if(!newClan.surname || !newClan.primary_clan_name){addMsg.textContent='⚠️ Surname and Primary Clan Name are required.'; return;}
+    if(!newClan.surname||!newClan.primary_clan_name){addMsg.textContent='⚠️ Surname and Primary Clan Name are required.';return;}
     addClan(newClan);
     addMsg.textContent='✅ Clan added and saved locally. Please verify with elders.';
     ['newSurname','newLang','newType','newPrimary','newPraises','newOrigin','newEtymology','newRegions','newNotes'].forEach(id=>document.getElementById(id).value='');
@@ -199,140 +194,50 @@ function addClan(newClan){
 </body>
 </html>
 
-
-On Mon, 11 Dec 2023, 07:08 Yanga Zoy Mlindazwe, <yangagunxwana@gmail.com> wrote:
-
 [
   {
     "surname": "Dlamini",
+    "language_group": ["Zulu", "Swati"],
+    "clan_type": "Izithakazelo",
     "primary_clan_name": "Dlamini",
-    "clan_type": "Zulu",
-    "language_group": ["Zulu", "Swazi"],
-    "praises": ["Zulu kaBhekuzulu", "Sihlangu seDlamini"],
-    "origin_summary": "Originates from Swazi and Zulu royalty lines.",
-    "etymology_or_meaning": "Dlamini means 'descendants of Dlamini'.",
-    "regions": ["KwaZulu-Natal", "Swaziland"],
-    "notes": "One of the largest clans in Southern Africa."
+    "praises": ["Zulu kaBhekuzulu", "Mlangeni", "Sothole"],
+    "origin_summary": "One of the largest clans in Southern Africa, prominent among the Swati and Zulu.",
+    "etymology_or_meaning": "Derived from 'udlamini', meaning one who conquers or rules.",
+    "regions": ["KwaZulu-Natal", "Eswatini", "Mpumalanga"],
+    "notes": "Royal family of Eswatini."
   },
   {
     "surname": "Mpisi",
-    "primary_clan_name": "Mpisi",
-    "clan_type": "Xhosa",
     "language_group": ["Xhosa"],
-    "praises": ["oGadlume", "Bumbantaba", "NoMathe"],
-    "origin_summary": "Situated in Bizana, KwaMpisi area.",
-    "etymology_or_meaning": "Mpisi means 'hyena', symbolic of strength.",
+    "clan_type": "Iziduko",
+    "primary_clan_name": "Mpisi",
+    "praises": ["oGadlume", "Mafuya", "Mthimkhulu"],
+    "origin_summary": "A Xhosa clan with roots in the Eastern Cape.",
+    "etymology_or_meaning": "Means 'hyena' in Nguni languages.",
     "regions": ["Eastern Cape"],
-    "notes": "Rural clan with strong traditional leadership."
+    "notes": "Clan associated with resilience and adaptability."
   },
   {
     "surname": "Khumalo",
-    "primary_clan_name": "Khumalo",
-    "clan_type": "Zulu",
     "language_group": ["Zulu"],
-    "praises": ["Khulu kaMntwana", "Shaka kaSenzangakhona"],
-    "origin_summary": "Royal lineage from Zulu Kingdom.",
-    "etymology_or_meaning": "Khumalo means 'greatness'.",
-    "regions": ["KwaZulu-Natal", "Gauteng"],
-    "notes": "Known for historical leadership in Zululand."
-  },
-  {
-    "surname": "Tshawe",
-    "primary_clan_name": "Tshawe",
-    "clan_type": "Xhosa",
-    "language_group": ["Xhosa"],
-    "praises": ["AmaTshawe", "Ndaba kaTshawe"],
-    "origin_summary": "Royal Xhosa clan from the Eastern Cape.",
-    "etymology_or_meaning": "Tshawe means 'brave'.",
-    "regions": ["Eastern Cape"],
-    "notes": "Known for chiefs and traditional governance."
-  },
-  {
-    "surname": "Mokoena",
-    "primary_clan_name": "Mokoena",
-    "clan_type": "Sotho",
-    "language_group": ["Sotho"],
-    "praises": ["SeMokoena", "BaMokoena"],
-    "origin_summary": "Sotho clan originally from Free State region.",
-    "etymology_or_meaning": "Mokoena means 'rock' or 'strong'.",
-    "regions": ["Free State", "Gauteng"],
-    "notes": "Large Sotho-speaking family group."
+    "clan_type": "Izithakazelo",
+    "primary_clan_name": "Khumalo",
+    "praises": ["Khulu kaMntwana", "Mntungwa", "Gatsheni"],
+    "origin_summary": "One of the main Zulu clans, historically linked to King Mzilikazi.",
+    "etymology_or_meaning": "Means 'descendants of Khumalo'.",
+    "regions": ["KwaZulu-Natal", "Zimbabwe"],
+    "notes": "Important in the formation of the Ndebele kingdom."
   },
   {
     "surname": "Ndlovu",
-    "primary_clan_name": "Ndlovu",
-    "clan_type": "Zulu/Xhosa",
     "language_group": ["Zulu", "Xhosa"],
-    "praises": ["Inkosi yeNdlovu", "Ndlovu kaMntwana"],
-    "origin_summary": "Found across Southern Africa; associated with strength.",
-    "etymology_or_meaning": "Ndlovu means 'elephant', symbol of power.",
-    "regions": ["KwaZulu-Natal", "Eastern Cape", "Mpumalanga"],
-    "notes": "Common surname among Zulu and Xhosa people."
-  },
-  {
-    "surname": "Ngcobo",
-    "primary_clan_name": "Ngcobo",
-    "clan_type": "Zulu",
-    "language_group": ["Zulu"],
-    "praises": ["Inkosi kaNgcobo", "BaNgcobo"],
-    "origin_summary": "Zulu clan primarily in KwaZulu-Natal.",
-    "etymology_or_meaning": "Ngcobo means 'leader'.",
-    "regions": ["KwaZulu-Natal"],
-    "notes": "Historically important in regional politics."
-  },
-  {
-    "surname": "Radebe",
-    "primary_clan_name": "Radebe",
-    "clan_type": "Zulu",
-    "language_group": ["Zulu"],
-    "praises": ["uRadebe kaMntwana", "Abazimnyama"],
-    "origin_summary": "Royal lineage from Zulu history.",
-    "etymology_or_meaning": "Radebe means 'descendants of Radebe'.",
-    "regions": ["KwaZulu-Natal", "Gauteng"],
-    "notes": "Influential family in politics and culture."
-  },
-  {
-    "surname": "Mthembu",
-    "primary_clan_name": "Mthembu",
-    "clan_type": "Zulu",
-    "language_group": ["Zulu"],
-    "praises": ["Mthembu kaZwide", "Abantu beMthembu"],
-    "origin_summary": "Zulu clan from KwaZulu-Natal.",
-    "etymology_or_meaning": "Mthembu means 'guardian' or 'protector'.",
-    "regions": ["KwaZulu-Natal"],
-    "notes": "Prominent in traditional leadership and history."
-  },
-  {
-    "surname": "Ndwandwe",
-    "primary_clan_name": "Ndwandwe",
-    "clan_type": "Zulu",
-    "language_group": ["Zulu"],
-    "praises": ["AmaNdwandwe", "Ndwandwe kaZwide"],
-    "origin_summary": "Historic Zulu clan involved in early conflicts with Shaka.",
-    "etymology_or_meaning": "Ndwandwe means 'warriors'.",
-    "regions": ["KwaZulu-Natal", "Mpumalanga"],
-    "notes": "Historically significant in Zulu wars."
-  },
-  {
-    "surname": "Zulu",
-    "primary_clan_name": "Zulu",
-    "clan_type": "Zulu",
-    "language_group": ["Zulu"],
-    "praises": ["Shaka kaSenzangakhona", "Inkosi yeZulu"],
-    "origin_summary": "Royal Zulu clan; founders of the Zulu Kingdom.",
-    "etymology_or_meaning": "Zulu means 'heaven' or 'sky'.",
-    "regions": ["KwaZulu-Natal"],
-    "notes": "One of the most famous clans in Southern Africa."
-  },
-  {
-    "surname": "Mabena",
-    "primary_clan_name": "Mabena",
-    "clan_type": "Sotho/Tswana",
-    "language_group": ["Sotho", "Tswana"],
-    "praises": ["BaMabena", "Inkosi kaMabena"],
-    "origin_summary": "Sotho-speaking clan found in Free State and Gauteng.",
-    "etymology_or_meaning": "Mabena means 'stone or rock'.",
-    "regions": ["Free State", "Gauteng"],
-    "notes": "Traditional family with historic significance."
+    "clan_type": "Izithakazelo/Iziduko",
+    "primary_clan_name": "Ndlovu",
+    "praises": ["Inkosi yeNdlovu", "Mntungwa", "Bhebhe kaKhokho"],
+    "origin_summary": "Common clan name in both Zulu and Xhosa communities.",
+    "etymology_or_meaning": "Means 'elephant'.",
+    "regions": ["KwaZulu-Natal", "Eastern Cape"],
+    "notes": "Symbolizes strength and leadership."
   }
 ]
+
